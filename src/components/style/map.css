@@ -1,0 +1,25 @@
+body {
+  overflow: hidden;
+}
+
+#map {
+  height: 100vh;
+}
+
+.map-container {
+  position: relative;
+}
+
+.map-container .statistics {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.map-container .statistics .stats-child {
+  height: 200px;
+  transition: 0.2s;
+  overflow: hidden;
+}
