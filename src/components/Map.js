@@ -56,13 +56,16 @@ export default function Map() {
       }
     );
     setMap(mapInstance);
-
-    // Initialize marker
+    // const imageMarker = document.createElement("img");
+    // imageMarker.src = "/PocketGPS/marker.gif";
+    // imageMarker.width = "50";
+    // imageMarker.style.mixBlendMode = "screen";
     markerRef.current = new window.google.maps.marker.AdvancedMarkerElement({
       map: mapInstance,
       position: pos,
       title: "You are here!",
       id: "user-location-marker",
+      // content: imageMarker,
     });
 
     lineRef.current = new window.google.maps.Polyline({
@@ -119,6 +122,7 @@ export default function Map() {
                 prevPath[pathLength - 1],
                 prevPath[pathLength - 2]
               );
+              setCheckpointDistance(dist);
               setTotalDisplacement(
                 parseInt(
                   haversineDistance(prevPath[pathLength - 1], prevPath[0])
@@ -127,7 +131,9 @@ export default function Map() {
               if (dist < 5) {
                 return [...prevPath.slice(0, -1), endPos];
               }
-              setCheckpointDistance((d) => d + dist);
+              setTotalDistance((d) => d + dist);
+            }
+            if (prevPath.length > 50) {
             }
             return [...prevPath, endPos];
           });
@@ -153,7 +159,8 @@ export default function Map() {
         };
         setPos((prevPos) => {
           if (prevPos) {
-            moveMarkerSmoothly(prevPos, newPos);
+            if (haversineDistance(prevPos, newPos) > 5)
+              moveMarkerSmoothly(prevPos, newPos);
           } else {
             newPos.time = Date.now();
             setLinePath([newPos]);
@@ -176,6 +183,32 @@ export default function Map() {
       lat: start.lat + (end.lat - start.lat) * factor,
       lng: start.lng + (end.lng - start.lng) * factor,
     };
+  };
+
+  const coordsToSnapRoad = async () => {
+    try {
+      const mappedCoords = linePath.map((e) => `${e.lat},${e.lng}`).join("|");
+
+      const url = `https://roads.googleapis.com/v1/snapToRoads?path=${mappedCoords}&interpolate=true&key=${process.env.REACT_APP_GOOGLE_MAP_API}`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const snappedPoints = data?.snappedPoints || [];
+
+      setLinePath([
+        ...snappedPoints.map(({ location }) => ({
+          lat: location.latitude,
+          lng: location.longitude,
+        })),
+        { lat: pos.lat, lng: pos.lng },
+      ]);
+    } catch (error) {
+      console.error("Error snapping to road:", error);
+    }
   };
 
   return (
@@ -212,7 +245,11 @@ export default function Map() {
               <div className="col-6 col-lg-3 p-0">
                 <div className="h-100 d-inline-flex justify-content-center align-items-center bg-warning w-100 pt-3">
                   <div className="text-center">
-                    <h3>{parseInt(checkpointDistance)}m</h3>
+                    <h3>
+                      {checkpointDistance > 1000
+                        ? `${(checkpointDistance / 1000).toFixed(1)}km`
+                        : `${parseInt(checkpointDistance)}m`}
+                    </h3>
                     <p>Checkpoint Distance</p>
                   </div>
                 </div>
@@ -236,6 +273,12 @@ export default function Map() {
                 }
               >
                 {statsView ? "Hide" : "Show"}
+              </button>
+              <button
+                className="btn btn-warning border-0"
+                onClick={coordsToSnapRoad}
+              >
+                Repair Path
               </button>
             </div>
           </div>
