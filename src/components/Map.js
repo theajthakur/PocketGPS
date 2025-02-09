@@ -159,8 +159,7 @@ export default function Map() {
         };
         setPos((prevPos) => {
           if (prevPos) {
-            if (haversineDistance(prevPos, newPos) > 5)
-              moveMarkerSmoothly(prevPos, newPos);
+            moveMarkerSmoothly(prevPos, newPos);
           } else {
             newPos.time = Date.now();
             setLinePath([newPos]);
