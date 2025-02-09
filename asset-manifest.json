@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/PocketGPS/static/css/main.d053d909.css",
-    "main.js": "/PocketGPS/static/js/main.e54074aa.js",
+    "main.js": "/PocketGPS/static/js/main.4c7bdc48.js",
     "static/js/488.0dfda865.chunk.js": "/PocketGPS/static/js/488.0dfda865.chunk.js",
     "index.html": "/PocketGPS/index.html",
     "main.d053d909.css.map": "/PocketGPS/static/css/main.d053d909.css.map",
-    "main.e54074aa.js.map": "/PocketGPS/static/js/main.e54074aa.js.map",
+    "main.4c7bdc48.js.map": "/PocketGPS/static/js/main.4c7bdc48.js.map",
     "488.0dfda865.chunk.js.map": "/PocketGPS/static/js/488.0dfda865.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d053d909.css",
-    "static/js/main.e54074aa.js"
+    "static/js/main.4c7bdc48.js"
   ]
 }
