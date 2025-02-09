@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import Loader from "./Loader";
 import "./style/map.css";
-import { FaWrench, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import {
+  FaWrench,
+  FaArrowUp,
+  FaArrowDown,
+  FaCrosshairs,
+  FaHistory,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 export default function Map() {
   const [pos, setPos] = useState(null);
   const [map, setMap] = useState(null);
@@ -233,6 +240,9 @@ export default function Map() {
     }
   };
 
+  const mapCenter = () => {
+    map.panTo(pos);
+  };
   return (
     <div className="map-container">
       {pos ? (
@@ -303,6 +313,18 @@ export default function Map() {
                 >
                   <FaWrench />
                 </button>
+                <button
+                  className="btn btn-secondary rounded-0"
+                  onClick={mapCenter}
+                >
+                  <FaCrosshairs />
+                </button>
+                <Link
+                  className="btn btn-secondary rounded-0"
+                  to="/PocketGPS/history"
+                >
+                  <FaHistory />
+                </Link>
               </div>
             </div>
           </div>
