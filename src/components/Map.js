@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import Loader from "./Loader";
 import "./style/map.css";
+import { FaWrench, FaArrowUp, FaArrowDown } from "react-icons/fa";
 export default function Map() {
   const [pos, setPos] = useState(null);
   const [map, setMap] = useState(null);
@@ -12,6 +13,7 @@ export default function Map() {
   const markerRef = useRef(null);
   const lineRef = useRef(null);
   const [statsView, setStatsView] = useState(true);
+  const [pathToProcess, setPathToProcess] = useState(10);
 
   const statsViewerToggle = () => {
     const trgt = document.getElementsByClassName("stats-child")[0];
@@ -146,6 +148,26 @@ export default function Map() {
   useEffect(() => {
     if (!lineRef.current) return;
     lineRef.current.setPath(linePath);
+
+    if (linePath.length >= pathToProcess) {
+      (async () => {
+        const start = Math.max(0, pathToProcess - 20); // Ensure non-negative slicing
+        const data = await coordsToSnapRoad(
+          linePath.slice(start, pathToProcess)
+        );
+
+        setLinePath((prevPath) => {
+          const newArray = [
+            ...prevPath.slice(0, start),
+            ...data,
+            ...prevPath.slice(pathToProcess),
+          ];
+          return newArray;
+        });
+
+        setPathToProcess((prev) => prev + 20); // Move to next batch
+      })();
+    }
   }, [linePath]);
 
   useEffect(() => {
@@ -196,15 +218,16 @@ export default function Map() {
       }
 
       const data = await response.json();
-      const snappedPoints = data?.snappedPoints || [];
+      return data;
+      // const snappedPoints = data?.snappedPoints || [];
 
-      setLinePath([
-        ...snappedPoints.map(({ location }) => ({
-          lat: location.latitude,
-          lng: location.longitude,
-        })),
-        { lat: pos.lat, lng: pos.lng },
-      ]);
+      // setLinePath([
+      //   ...snappedPoints.map(({ location }) => ({
+      //     lat: location.latitude,
+      //     lng: location.longitude,
+      //   })),
+      //   { lat: pos.lat, lng: pos.lng },
+      // ]);
     } catch (error) {
       console.error("Error snapping to road:", error);
     }
@@ -262,23 +285,25 @@ export default function Map() {
                 </div>
               </div>
             </div>
-            <div className="stats-toggler d-inline-flex w-100 justify-content-center">
-              <button
-                onClick={statsViewerToggle}
-                className={
-                  statsView
-                    ? "btn btn-danger rounded-0"
-                    : "btn btn-success rounded-0"
-                }
-              >
-                {statsView ? "Hide" : "Show"}
-              </button>
-              <button
-                className="btn btn-warning border-0"
-                onClick={coordsToSnapRoad}
-              >
-                Repair Path
-              </button>
+            <div className="stats-toggler container py-2 text-center">
+              <div className="inner">
+                <button
+                  onClick={statsViewerToggle}
+                  className={
+                    statsView
+                      ? "btn btn-primary rounded-0"
+                      : "btn btn-secondary rounded-0"
+                  }
+                >
+                  {statsView ? <FaArrowUp /> : <FaArrowDown />}
+                </button>
+                <button
+                  className="btn btn-secondary rounded-0"
+                  onClick={coordsToSnapRoad}
+                >
+                  <FaWrench />
+                </button>
+              </div>
             </div>
           </div>
         </div>
