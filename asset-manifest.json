@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/PocketGPS/static/css/main.1204356f.css",
-    "main.js": "/PocketGPS/static/js/main.a9ab424c.js",
-    "static/css/563.478d7159.chunk.css": "/PocketGPS/static/css/563.478d7159.chunk.css",
-    "static/js/563.cdc0116c.chunk.js": "/PocketGPS/static/js/563.cdc0116c.chunk.js",
+    "main.js": "/PocketGPS/static/js/main.b51927de.js",
+    "static/css/563.e2cdcb7d.chunk.css": "/PocketGPS/static/css/563.e2cdcb7d.chunk.css",
+    "static/js/563.4ee962da.chunk.js": "/PocketGPS/static/js/563.4ee962da.chunk.js",
     "static/js/257.648b9f69.chunk.js": "/PocketGPS/static/js/257.648b9f69.chunk.js",
     "static/js/488.0dfda865.chunk.js": "/PocketGPS/static/js/488.0dfda865.chunk.js",
-    "static/js/184.dd762533.chunk.js": "/PocketGPS/static/js/184.dd762533.chunk.js",
+    "static/js/184.1e3df6da.chunk.js": "/PocketGPS/static/js/184.1e3df6da.chunk.js",
     "static/js/156.1ad60aa8.chunk.js": "/PocketGPS/static/js/156.1ad60aa8.chunk.js",
     "index.html": "/PocketGPS/index.html",
     "main.1204356f.css.map": "/PocketGPS/static/css/main.1204356f.css.map",
-    "main.a9ab424c.js.map": "/PocketGPS/static/js/main.a9ab424c.js.map",
-    "563.478d7159.chunk.css.map": "/PocketGPS/static/css/563.478d7159.chunk.css.map",
-    "563.cdc0116c.chunk.js.map": "/PocketGPS/static/js/563.cdc0116c.chunk.js.map",
+    "main.b51927de.js.map": "/PocketGPS/static/js/main.b51927de.js.map",
+    "563.e2cdcb7d.chunk.css.map": "/PocketGPS/static/css/563.e2cdcb7d.chunk.css.map",
+    "563.4ee962da.chunk.js.map": "/PocketGPS/static/js/563.4ee962da.chunk.js.map",
     "257.648b9f69.chunk.js.map": "/PocketGPS/static/js/257.648b9f69.chunk.js.map",
     "488.0dfda865.chunk.js.map": "/PocketGPS/static/js/488.0dfda865.chunk.js.map",
-    "184.dd762533.chunk.js.map": "/PocketGPS/static/js/184.dd762533.chunk.js.map",
+    "184.1e3df6da.chunk.js.map": "/PocketGPS/static/js/184.1e3df6da.chunk.js.map",
     "156.1ad60aa8.chunk.js.map": "/PocketGPS/static/js/156.1ad60aa8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1204356f.css",
-    "static/js/main.a9ab424c.js"
+    "static/js/main.b51927de.js"
   ]
 }
