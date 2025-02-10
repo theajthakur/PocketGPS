@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/PocketGPS/static/css/main.1204356f.css",
-    "main.js": "/PocketGPS/static/js/main.9ce38cd0.js",
-    "static/css/563.815b3a35.chunk.css": "/PocketGPS/static/css/563.815b3a35.chunk.css",
-    "static/js/563.5262c1b8.chunk.js": "/PocketGPS/static/js/563.5262c1b8.chunk.js",
+    "main.js": "/PocketGPS/static/js/main.a9ab424c.js",
+    "static/css/563.478d7159.chunk.css": "/PocketGPS/static/css/563.478d7159.chunk.css",
+    "static/js/563.cdc0116c.chunk.js": "/PocketGPS/static/js/563.cdc0116c.chunk.js",
     "static/js/257.648b9f69.chunk.js": "/PocketGPS/static/js/257.648b9f69.chunk.js",
     "static/js/488.0dfda865.chunk.js": "/PocketGPS/static/js/488.0dfda865.chunk.js",
     "static/js/184.dd762533.chunk.js": "/PocketGPS/static/js/184.dd762533.chunk.js",
     "static/js/156.1ad60aa8.chunk.js": "/PocketGPS/static/js/156.1ad60aa8.chunk.js",
     "index.html": "/PocketGPS/index.html",
     "main.1204356f.css.map": "/PocketGPS/static/css/main.1204356f.css.map",
-    "main.9ce38cd0.js.map": "/PocketGPS/static/js/main.9ce38cd0.js.map",
-    "563.815b3a35.chunk.css.map": "/PocketGPS/static/css/563.815b3a35.chunk.css.map",
-    "563.5262c1b8.chunk.js.map": "/PocketGPS/static/js/563.5262c1b8.chunk.js.map",
+    "main.a9ab424c.js.map": "/PocketGPS/static/js/main.a9ab424c.js.map",
+    "563.478d7159.chunk.css.map": "/PocketGPS/static/css/563.478d7159.chunk.css.map",
+    "563.cdc0116c.chunk.js.map": "/PocketGPS/static/js/563.cdc0116c.chunk.js.map",
     "257.648b9f69.chunk.js.map": "/PocketGPS/static/js/257.648b9f69.chunk.js.map",
     "488.0dfda865.chunk.js.map": "/PocketGPS/static/js/488.0dfda865.chunk.js.map",
     "184.dd762533.chunk.js.map": "/PocketGPS/static/js/184.dd762533.chunk.js.map",
@@ -20,6 +20,6 @@
   },
   "entrypoints": [
     "static/css/main.1204356f.css",
-    "static/js/main.9ce38cd0.js"
+    "static/js/main.a9ab424c.js"
   ]
 }
