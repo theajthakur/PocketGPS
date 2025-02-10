@@ -156,25 +156,25 @@ export default function Map() {
     if (!lineRef.current) return;
     lineRef.current.setPath(linePath);
 
-    if (linePath.length >= pathToProcess) {
-      (async () => {
-        const start = Math.max(0, pathToProcess - 20); // Ensure non-negative slicing
-        const data = await coordsToSnapRoad(
-          linePath.slice(start, pathToProcess)
-        );
+    // if (linePath.length >= pathToProcess) {
+    //   (async () => {
+    //     const start = Math.max(0, pathToProcess - 20); // Ensure non-negative slicing
+    //     const data = await coordsToSnapRoad(
+    //       linePath.slice(start, pathToProcess)
+    //     );
 
-        setLinePath((prevPath) => {
-          const newArray = [
-            ...prevPath.slice(0, start),
-            ...data,
-            ...prevPath.slice(pathToProcess),
-          ];
-          return newArray;
-        });
+    //     setLinePath((prevPath) => {
+    //       const newArray = [
+    //         ...prevPath.slice(0, start),
+    //         ...data,
+    //         ...prevPath.slice(pathToProcess),
+    //       ];
+    //       return newArray;
+    //     });
 
-        setPathToProcess((prev) => prev + 20); // Move to next batch
-      })();
-    }
+    //     setPathToProcess((prev) => prev + 20); // Move to next batch
+    //   })();
+    // }
   }, [linePath]);
 
   useEffect(() => {
@@ -225,16 +225,16 @@ export default function Map() {
       }
 
       const data = await response.json();
-      return data;
-      // const snappedPoints = data?.snappedPoints || [];
+      // return data;
+      const snappedPoints = data?.snappedPoints || [];
 
-      // setLinePath([
-      //   ...snappedPoints.map(({ location }) => ({
-      //     lat: location.latitude,
-      //     lng: location.longitude,
-      //   })),
-      //   { lat: pos.lat, lng: pos.lng },
-      // ]);
+      setLinePath([
+        ...snappedPoints.map(({ location }) => ({
+          lat: location.latitude,
+          lng: location.longitude,
+        })),
+        { lat: pos.lat, lng: pos.lng },
+      ]);
     } catch (error) {
       console.error("Error snapping to road:", error);
     }
