@@ -20,7 +20,6 @@ export default function Map() {
   const markerRef = useRef(null);
   const lineRef = useRef(null);
   const [statsView, setStatsView] = useState(true);
-  const [pathToProcess, setPathToProcess] = useState(10);
 
   const statsViewerToggle = () => {
     const trgt = document.getElementsByClassName("stats-child")[0];
@@ -155,26 +154,6 @@ export default function Map() {
   useEffect(() => {
     if (!lineRef.current) return;
     lineRef.current.setPath(linePath);
-
-    // if (linePath.length >= pathToProcess) {
-    //   (async () => {
-    //     const start = Math.max(0, pathToProcess - 20); // Ensure non-negative slicing
-    //     const data = await coordsToSnapRoad(
-    //       linePath.slice(start, pathToProcess)
-    //     );
-
-    //     setLinePath((prevPath) => {
-    //       const newArray = [
-    //         ...prevPath.slice(0, start),
-    //         ...data,
-    //         ...prevPath.slice(pathToProcess),
-    //       ];
-    //       return newArray;
-    //     });
-
-    //     setPathToProcess((prev) => prev + 20); // Move to next batch
-    //   })();
-    // }
   }, [linePath]);
 
   useEffect(() => {
