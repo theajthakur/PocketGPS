@@ -7,6 +7,7 @@ import {
   FaArrowDown,
   FaCrosshairs,
   FaHistory,
+  FaSave,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 export default function Map() {
@@ -21,6 +22,8 @@ export default function Map() {
   const lineRef = useRef(null);
   const [statsView, setStatsView] = useState(true);
 
+  const [lastTime, setLastTime] = useState(0);
+
   const statsViewerToggle = () => {
     const trgt = document.getElementsByClassName("stats-child")[0];
     if (trgt) {
@@ -30,7 +33,7 @@ export default function Map() {
         trgt.style.overflow = "hidden";
       } else {
         setStatsView(true);
-        trgt.style.height = "";
+        trgt.style.height = "max-content";
         trgt.style.overflow = "auto";
       }
     } else {
@@ -194,8 +197,15 @@ export default function Map() {
 
   const coordsToSnapRoad = async () => {
     try {
-      const mappedCoords = linePath.map((e) => `${e.lat},${e.lng}`).join("|");
-
+      const mappedCoords = linePath
+        .filter((d) => d.time > lastTime)
+        .map((e) => `${e.lat},${e.lng}`)
+        .join("|");
+      if (!mappedCoords) {
+        console.log("No Data to process!");
+        return;
+      }
+      setLastTime(Math.max(...linePath.map((d) => d.time)));
       const url = `https://roads.googleapis.com/v1/snapToRoads?path=${mappedCoords}&interpolate=true&key=${process.env.REACT_APP_GOOGLE_MAP_API}`;
 
       const response = await fetch(url);
@@ -221,6 +231,14 @@ export default function Map() {
 
   const mapCenter = () => {
     map.panTo(pos);
+  };
+
+  const savePath = () => {
+    let name = prompt("Enter Rpute Name:");
+    if (!name) {
+      name = Date.now();
+    }
+    alert(`Saved: ${name}`);
   };
   return (
     <div className="map-container">
@@ -306,6 +324,12 @@ export default function Map() {
                 >
                   <FaHistory />
                 </Link>
+                <button
+                  className="btn btn-success rounded-0"
+                  onClick={savePath}
+                >
+                  <FaSave />
+                </button>
               </div>
             </div>
           </div>
