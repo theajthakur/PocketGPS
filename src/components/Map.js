@@ -30,7 +30,7 @@ export default function Map() {
         trgt.style.overflow = "hidden";
       } else {
         setStatsView(true);
-        trgt.style.height = "200px";
+        trgt.style.height = "";
         trgt.style.overflow = "auto";
       }
     } else {
@@ -228,48 +228,50 @@ export default function Map() {
         <div>
           <div id="map"></div>
           <div className="statistics">
-            <div className="row p-0 stats-child">
-              <div className="col-6 col-sm-8 col-lg-3 p-0">
-                <div className="h-100 d-inline-flex justify-content-center align-items-center bg-primary w-100 pt-3">
-                  <div className="text-center">
-                    <h3>
-                      {totalDisplacement > 1000
-                        ? `${(totalDisplacement / 1000).toFixed(1)}km`
-                        : `${totalDisplacement}m`}
-                    </h3>
-                    <p>Total Displacement</p>
+            <div className="stats-child bg-light">
+              <div className="row p-0 m-0">
+                <div className="col-6 col-sm-8 col-lg-3 p-0">
+                  <div className="h-100 d-inline-flex justify-content-center align-items-center bg-primary w-100 pt-3">
+                    <div className="text-center">
+                      <h3>
+                        {totalDisplacement > 1000
+                          ? `${(totalDisplacement / 1000).toFixed(1)}km`
+                          : `${totalDisplacement}m`}
+                      </h3>
+                      <p>Total Displacement</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-6 col-sm-4 col-lg-3 p-0">
-                <div className="h-100 d-inline-flex justify-content-center align-items-center bg-success w-100 pt-3">
-                  <div className="text-center">
-                    <h3>
-                      {totalDistance > 1000
-                        ? `${(totalDistance / 1000).toFixed(1)}km`
-                        : `${parseInt(totalDistance)}m`}
-                    </h3>
-                    <p>Total Distance</p>
+                <div className="col-6 col-sm-4 col-lg-3 p-0">
+                  <div className="h-100 d-inline-flex justify-content-center align-items-center bg-success w-100 pt-3">
+                    <div className="text-center">
+                      <h3>
+                        {totalDistance > 1000
+                          ? `${(totalDistance / 1000).toFixed(1)}km`
+                          : `${parseInt(totalDistance)}m`}
+                      </h3>
+                      <p>Total Distance</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-6 col-lg-3 p-0">
-                <div className="h-100 d-inline-flex justify-content-center align-items-center bg-warning w-100 pt-3">
-                  <div className="text-center">
-                    <h3>
-                      {checkpointDistance > 1000
-                        ? `${(checkpointDistance / 1000).toFixed(1)}km`
-                        : `${parseInt(checkpointDistance)}m`}
-                    </h3>
-                    <p>Checkpoint Distance</p>
+                <div className="col-6 col-lg-3 p-0">
+                  <div className="h-100 d-inline-flex justify-content-center align-items-center bg-warning w-100 pt-3">
+                    <div className="text-center">
+                      <h3>
+                        {checkpointDistance > 1000
+                          ? `${(checkpointDistance / 1000).toFixed(1)}km`
+                          : `${parseInt(checkpointDistance)}m`}
+                      </h3>
+                      <p>Checkpoint Distance</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-6 col-lg-3  p-0">
-                <div className="h-100 d-inline-flex justify-content-center align-items-center bg-info w-100 pt-3">
-                  <div className="text-center">
-                    <h3>{linePath.length - 1}</h3>
-                    <p>Total Checkpoint{linePath.length > 2 ? "s" : ""}</p>
+                <div className="col-6 col-lg-3  p-0">
+                  <div className="h-100 d-inline-flex justify-content-center align-items-center bg-info w-100 pt-3">
+                    <div className="text-center">
+                      <h3>{linePath.length - 1}</h3>
+                      <p>Total Checkpoint{linePath.length > 2 ? "s" : ""}</p>
+                    </div>
                   </div>
                 </div>
               </div>

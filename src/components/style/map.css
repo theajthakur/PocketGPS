@@ -19,7 +19,12 @@ body {
 }
 
 .map-container .statistics .stats-child {
-  height: 200px;
+  height: 100vh;
   transition: 0.2s;
   overflow: hidden;
+}
+
+.map-container .statistics .stats-toggler {
+  position: sticky;
+  bottom: 0;
 }
