@@ -156,8 +156,6 @@ export default function Map() {
   useEffect(() => {
     if (!lineRef.current) return;
     lineRef.current.setPath(linePath);
-    console.log(linePath);
-    notyf.success("Hi");
   }, [linePath]);
 
   useEffect(() => {
