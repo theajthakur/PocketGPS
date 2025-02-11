@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import Loader from "./Loader";
 import "./style/map.css";
+import notyf from "./Notyf";
 import {
   FaWrench,
   FaArrowUp,
@@ -21,8 +22,7 @@ export default function Map() {
   const markerRef = useRef(null);
   const lineRef = useRef(null);
   const [statsView, setStatsView] = useState(true);
-
-  const [lastTime, setLastTime] = useState(0);
+  const [coordsIndex, setCoordsIndex] = useState(0);
 
   const statsViewerToggle = () => {
     const trgt = document.getElementsByClassName("stats-child")[0];
@@ -53,7 +53,6 @@ export default function Map() {
     }
   }, []);
 
-  // Initialize map, marker, and polyline
   useEffect(() => {
     if (!isMapLoaded || !pos) return;
     if (map) return;
@@ -157,6 +156,8 @@ export default function Map() {
   useEffect(() => {
     if (!lineRef.current) return;
     lineRef.current.setPath(linePath);
+    console.log(linePath);
+    notyf.success("Hi");
   }, [linePath]);
 
   useEffect(() => {
@@ -198,15 +199,14 @@ export default function Map() {
   const coordsToSnapRoad = async () => {
     try {
       const mappedCoords = linePath
-        .filter((d) => d.time > lastTime)
+        .slice(coordsIndex, linePath.length)
         .map((e) => `${e.lat},${e.lng}`)
         .join("|");
-      if (!mappedCoords) {
+      if (!mappedCoords || mappedCoords.length === 0) {
         console.log("No Data to process!");
         return;
       }
-      setLastTime(Math.max(...linePath.map((d) => d.time)));
-      const url = `https://roads.googleapis.com/v1/snapToRoads?path=${mappedCoords}&interpolate=true&key=${process.env.REACT_APP_GOOGLE_MAP_API}`;
+      const url = `https://roads.googleapis.com/v1/snapToRoads?path=${mappedCoords}&key=${process.env.REACT_APP_GOOGLE_MAP_API}`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -214,16 +214,21 @@ export default function Map() {
       }
 
       const data = await response.json();
-      // return data;
       const snappedPoints = data?.snappedPoints || [];
-
-      setLinePath([
-        ...snappedPoints.map(({ location }) => ({
-          lat: location.latitude,
-          lng: location.longitude,
-        })),
-        { lat: pos.lat, lng: pos.lng },
-      ]);
+      setLinePath((path) => {
+        const copyPath = [...path];
+        for (let i = coordsIndex; i < linePath.length; i++) {
+          console.log(
+            `Updating ${copyPath[i].lat} to ${
+              snappedPoints[i - coordsIndex].location.latitude
+            }`
+          );
+          copyPath[i].lat = snappedPoints[i - coordsIndex].location.latitude;
+          copyPath[i].lng = snappedPoints[i - coordsIndex].location.longitude;
+        }
+        return [...copyPath, pos];
+      });
+      setCoordsIndex(linePath.length);
     } catch (error) {
       console.error("Error snapping to road:", error);
     }
@@ -234,7 +239,7 @@ export default function Map() {
   };
 
   const savePath = () => {
-    let name = prompt("Enter Rpute Name:");
+    let name = prompt("Enter Route Name:");
     if (!name) {
       name = Date.now();
     }
